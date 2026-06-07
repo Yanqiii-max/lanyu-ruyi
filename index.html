@@ -150,12 +150,17 @@ header.nav.hide{transform:translateY(-105%)}
 .nav-burger{display:none;flex-direction:column;gap:6px;width:30px;cursor:pointer}
 .nav-burger span{height:1.5px;background:var(--ivory);transition:.4s var(--ease)}
 @media(max-width:920px){
+  /* 移动端去掉 header 的 backdrop-filter:否则它会成为 fixed 菜单的包含块,
+     导致关闭的全屏菜单被"困"在 72px 高的导航条里、底部项目(鉴赏/预约)露出悬浮 */
+  header.nav.scrolled{backdrop-filter:none}
   .nav-links{
-    position:fixed;inset:0;background:rgba(10,9,7,.97);backdrop-filter:blur(20px);
+    position:fixed;top:0;left:0;right:0;height:100dvh;height:100vh;
+    background:rgba(10,9,7,.98);backdrop-filter:blur(22px);
     flex-direction:column;justify-content:center;gap:2.4rem;
-    transform:translateY(-100%);transition:transform .7s var(--ease);
+    transform:translateY(-100%);opacity:0;visibility:hidden;
+    transition:transform .7s var(--ease),opacity .5s ease,visibility .5s;
   }
-  .nav-links.open{transform:translateY(0)}
+  .nav-links.open{transform:translateY(0);opacity:1;visibility:visible}
   .nav-links a{font-size:1.3rem;font-family:var(--serif-cn);letter-spacing:.3em}
   .nav-burger{display:flex;z-index:201}
   .nav-burger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
